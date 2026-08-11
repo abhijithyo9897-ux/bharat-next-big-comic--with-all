@@ -117,62 +117,108 @@ function App() {
           <ComicCanvas />
         </section>
 
-        {/* Right Inspector Panel */}
-        <aside className="inspector">
-          <div className="panel-header">Properties</div>
-          <div className="panel-content">
-            <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Select an object to inspect properties.</p>
+      <main className="main-content">
+        {/* Left Sidebar (Asset Library) */}
+        <aside className="left-sidebar">
+          <div style={{ padding: '16px', borderBottom: '1px solid var(--border)' }}>
+            <h3 style={{ margin: 0, fontSize: '14px' }}>Asset Library</h3>
+            <input type="text" placeholder="Search taxonomies..." style={{ width: '100%', padding: '6px', marginTop: '8px', background: 'var(--bg)', border: '1px solid var(--border)', color: 'white', borderRadius: '4px' }} />
+          </div>
+          
+          <div style={{ padding: '16px', flex: 1, overflowY: 'auto' }}>
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>Panels (Drag)</h4>
+            <div 
+              draggable="true" 
+              onDragStart={(e) => handleDragStart(e, { type: 'panel', title: 'Standard Panel' })}
+              style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', marginBottom: '8px', borderRadius: '4px', cursor: 'grab', fontSize: '12px' }}
+            >
+              [+] Standard Panel
+            </div>
+            <div 
+              draggable="true" 
+              onDragStart={(e) => handleDragStart(e, { type: 'panel', title: 'Cinematic Wide' })}
+              style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', marginBottom: '16px', borderRadius: '4px', cursor: 'grab', fontSize: '12px' }}
+            >
+              [+] Cinematic Wide
+            </div>
+
+            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>Balloons (Drag)</h4>
+            <div 
+              draggable="true" 
+              onDragStart={(e) => handleDragStart(e, { type: 'balloon', text: 'Hello!' })}
+              style={{ padding: '8px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid var(--primary)', marginBottom: '8px', borderRadius: '16px', cursor: 'grab', fontSize: '12px', textAlign: 'center' }}
+            >
+              Speech Bubble
+            </div>
+
+            <h4 style={{ margin: '16px 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>SFX (Drag)</h4>
+            <div 
+              draggable="true" 
+              onDragStart={(e) => handleDragStart(e, { type: 'sfx', text: 'BOOM!', color: '#ef4444' })}
+              style={{ padding: '8px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid #ef4444', marginBottom: '8px', borderRadius: '4px', cursor: 'grab', fontSize: '14px', textAlign: 'center', fontWeight: 'bold', color: '#ef4444', fontStyle: 'italic' }}
+            >
+              BOOM!
+            </div>
           </div>
         </aside>
+
+        {/* Universal Canvas Area */}
+        <ComicCanvas />
       </main>
 
-      {/* Pages Tray */}
+      {/* Pages & Workspace Tray (Section 49) */}
       <footer style={{
         height: '100px',
         background: 'var(--panel-bg)',
         borderTop: '1px solid var(--border)',
         display: 'flex',
-        alignItems: 'center',
-        padding: '0 16px',
-        gap: '12px',
-        overflowX: 'auto'
+        flexDirection: 'column',
+        justifyContent: 'center'
       }}>
-        <div style={{ fontWeight: 'bold', fontSize: '12px', color: 'var(--text-secondary)', marginRight: '8px' }}>PAGES</div>
-        {[1, 2, 3].map(page => (
-          <div 
-            key={page}
-            style={{ 
-              width: '60px', 
-              height: '80px', 
-              background: page === 1 ? 'white' : 'rgba(255,255,255,0.05)', 
-              border: page === 1 ? '2px solid var(--primary)' : '1px solid var(--border)',
+        <div style={{ display: 'flex', gap: '16px', padding: '4px 16px', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '11px', color: 'var(--text-secondary)' }}>
+          <span style={{ color: 'var(--primary)', fontWeight: 'bold', cursor: 'pointer' }}>Pages</span>
+          <span style={{ cursor: 'pointer' }}>Layers</span>
+          <span style={{ cursor: 'pointer' }}>Storyboard</span>
+          <span style={{ cursor: 'pointer' }}>Timeline</span>
+          <span style={{ cursor: 'pointer' }}>Notes</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', padding: '8px 16px', gap: '12px', overflowX: 'auto' }}>
+          {[1, 2, 3].map(page => (
+            <div 
+              key={page}
+              style={{ 
+                width: '40px', 
+                height: '56px', 
+                background: page === 1 ? 'white' : 'rgba(255,255,255,0.05)', 
+                border: page === 1 ? '2px solid var(--primary)' : '1px solid var(--border)',
+                borderRadius: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: page === 1 ? 'black' : 'var(--text-secondary)',
+                fontSize: '12px',
+                cursor: 'pointer',
+                flexShrink: 0
+              }}
+            >
+              {page}
+            </div>
+          ))}
+          <div style={{ 
+              width: '40px', 
+              height: '56px', 
+              border: '1px dashed var(--border)',
               borderRadius: '4px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: page === 1 ? 'black' : 'var(--text-secondary)',
-              fontSize: '12px',
+              color: 'var(--text-secondary)',
+              fontSize: '20px',
               cursor: 'pointer',
               flexShrink: 0
-            }}
-          >
-            {page}
+          }}>
+            +
           </div>
-        ))}
-        <div style={{ 
-            width: '60px', 
-            height: '80px', 
-            border: '1px dashed var(--border)',
-            borderRadius: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--text-secondary)',
-            fontSize: '24px',
-            cursor: 'pointer',
-            flexShrink: 0
-        }}>
-          +
         </div>
       </footer>
     </div>
