@@ -1,5 +1,5 @@
-// Module Layer Registry & Feature Flags Manifest (Implementation Plan v2.0 Section 3.1)
-// Self-contained package registration with non-breaking feature flags
+// Module Layer Registry & Feature Flags Manifest (Master Directive Specification)
+// Self-contained package registration with non-breaking feature flags for M1 – M25 + Master Index
 
 export const MODULE_REGISTRY = {
   M1_PAGE_FOUNDATION: { id: "M1", name: "Page & Canvas Foundation", enabled: true, phase: 1 },
@@ -24,7 +24,10 @@ export const MODULE_REGISTRY = {
   M20_EXPORT_PUBLISH: { id: "M20", name: "Export, Publish & Interoperability", enabled: true, phase: 1 },
   M21_ASSET_MANAGEMENT: { id: "M21", name: "Asset & Project Management", enabled: true, phase: 4 },
   M22_COLLABORATION: { id: "M22", name: "Collaboration & Review", enabled: false, phase: 4 },
-  M23_MOTION_PREVIEW: { id: "M23", name: "Animated Webtoon / Motion-Panel Preview", enabled: false, phase: 4 }
+  M23_MOTION_PREVIEW: { id: "M23", name: "Animated Webtoon / Motion-Panel Preview", enabled: false, phase: 4 },
+  M24_FREEHAND_BRUSH: { id: "M24", name: "Freehand Pen, Ink & Brush Tool", enabled: true, phase: 5 },
+  M25_ATTACHMENTS_IMPORT: { id: "M25", name: "Attachments & Reference Import", enabled: true, phase: 5 },
+  M26_MASTER_INDEX: { id: "M26", name: "Master Index & Directory (Cmd+K)", enabled: true, phase: 5 }
 };
 
 export function isModuleEnabled(moduleId) {

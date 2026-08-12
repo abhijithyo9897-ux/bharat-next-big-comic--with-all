@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ComicCanvas from './components/ComicCanvas';
 import BibleModal from './components/BibleModal';
 import AICopilot from './components/AICopilot';
@@ -7,6 +7,9 @@ import ExportModal from './components/ExportModal';
 import StageView3D from './components/StageView3D';
 import CoverKitModal from './components/CoverKitModal';
 import TemplateLibraryModal from './components/TemplateLibraryModal';
+import MasterIndexModal from './components/MasterIndexModal';
+import FreehandBrushModal from './components/FreehandBrushModal';
+import AttachmentModal from './components/AttachmentModal';
 import { Taxonomy } from './data/taxonomy';
 
 function App() {
@@ -17,6 +20,20 @@ function App() {
   const [showStage3D, setShowStage3D] = useState(false);
   const [showCoverKit, setShowCoverKit] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
+  const [showMasterIndex, setShowMasterIndex] = useState(false);
+  const [showFreehandBrush, setShowFreehandBrush] = useState(false);
+  const [showAttachment, setShowAttachment] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setShowMasterIndex(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleDragStart = (e, item) => {
     e.dataTransfer.setData('text/plain', JSON.stringify(item));
@@ -31,11 +48,23 @@ function App() {
       {showStage3D && <StageView3D onClose={() => setShowStage3D(false)} />}
       {showCoverKit && <CoverKitModal onClose={() => setShowCoverKit(false)} />}
       {showTemplates && <TemplateLibraryModal onClose={() => setShowTemplates(false)} />}
+      {showMasterIndex && <MasterIndexModal onClose={() => setShowMasterIndex(false)} />}
+      {showFreehandBrush && <FreehandBrushModal onClose={() => setShowFreehandBrush(false)} />}
+      {showAttachment && <AttachmentModal onClose={() => setShowAttachment(false)} />}
       
       {/* Top Navigation Bar */}
       <header className="top-bar">
         <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>BHARAT NEXT BIG COMIC</div>
         <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #38bdf8', color: '#38bdf8' }} onClick={() => setShowMasterIndex(!showMasterIndex)}>
+            🔍 Index (Cmd+K)
+          </button>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #f43f5e', color: '#fb7185' }} onClick={() => setShowFreehandBrush(!showFreehandBrush)}>
+            ✏️ Pen (M24)
+          </button>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #0ea5e9', color: '#38bdf8' }} onClick={() => setShowAttachment(!showAttachment)}>
+            📎 Import (M25)
+          </button>
           <button className="btn" style={{ background: 'transparent', border: '1px solid #10b981', color: '#34d399' }} onClick={() => setShowTemplates(!showTemplates)}>
             📚 Templates (M18)
           </button>
