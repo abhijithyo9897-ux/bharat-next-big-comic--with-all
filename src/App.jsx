@@ -4,6 +4,9 @@ import BibleModal from './components/BibleModal';
 import AICopilot from './components/AICopilot';
 import ScriptEditor from './components/ScriptEditor';
 import ExportModal from './components/ExportModal';
+import StageView3D from './components/StageView3D';
+import CoverKitModal from './components/CoverKitModal';
+import TemplateLibraryModal from './components/TemplateLibraryModal';
 import { Taxonomy } from './data/taxonomy';
 
 function App() {
@@ -11,6 +14,9 @@ function App() {
   const [showCopilot, setShowCopilot] = useState(false);
   const [showScriptEditor, setShowScriptEditor] = useState(false);
   const [showExport, setShowExport] = useState(false);
+  const [showStage3D, setShowStage3D] = useState(false);
+  const [showCoverKit, setShowCoverKit] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   return (
     <div className="app-container">
@@ -18,11 +24,23 @@ function App() {
       {showCopilot && <AICopilot onClose={() => setShowCopilot(false)} />}
       {showScriptEditor && <ScriptEditor onClose={() => setShowScriptEditor(false)} />}
       {showExport && <ExportModal onClose={() => setShowExport(false)} />}
+      {showStage3D && <StageView3D onClose={() => setShowStage3D(false)} />}
+      {showCoverKit && <CoverKitModal onClose={() => setShowCoverKit(false)} />}
+      {showTemplates && <TemplateLibraryModal onClose={() => setShowTemplates(false)} />}
       
       {/* Top Navigation Bar */}
       <header className="top-bar">
         <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>BHARAT NEXT BIG COMIC</div>
         <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #10b981', color: '#34d399' }} onClick={() => setShowTemplates(!showTemplates)}>
+            📚 Templates (M18)
+          </button>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #fb7185', color: '#fb7185' }} onClick={() => setShowCoverKit(!showCoverKit)}>
+            🎨 Cover Studio (M14)
+          </button>
+          <button className="btn" style={{ background: 'transparent', border: '1px solid #c084fc', color: '#c084fc' }} onClick={() => setShowStage3D(!showStage3D)}>
+            🎭 3D Stage (M5)
+          </button>
           <button className="btn" style={{ background: 'transparent', border: '1px solid #f59e0b', color: '#fcd34d' }} onClick={() => setShowScriptEditor(!showScriptEditor)}>
             📝 Script Editor
           </button>

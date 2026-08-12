@@ -6,6 +6,9 @@ const AICopilot = ({ onClose }) => {
     { role: 'ai', content: 'Hello! I am your visual storytelling copilot. Select an element on the canvas or type a prompt to generate art, layout panels, or suggest script dialogue.' }
   ]);
 
+  const taxonomyChips = [
+    '[MCU]', '[Low Angle]', '[35mm]', '[Rain]', '[Teal & Orange]', '[Jagged Border]', '[Shout Balloon]', '[BOOM SFX]', '[Devanagari Title]'
+  ];
   const promptChips = ['Generate Character', 'Suggest Layout', 'Extract Palette', 'Refine Dialogue', 'Create Background'];
 
   const handleSend = () => {
@@ -65,6 +68,28 @@ const AICopilot = ({ onClose }) => {
           }}>
             {msg.content}
           </div>
+        ))}
+      </div>
+
+      {/* Structured Prompt Chips (M15 Prompt Studio) */}
+      <div style={{ padding: '0 16px 8px 16px', display: 'flex', gap: '6px', overflowX: 'auto', flexWrap: 'nowrap' }}>
+        {taxonomyChips.map(chip => (
+          <button 
+            key={chip}
+            onClick={() => setPrompt(prev => prev ? `${prev} ${chip}` : chip)}
+            style={{ 
+              whiteSpace: 'nowrap',
+              padding: '4px 10px',
+              background: 'rgba(59, 130, 246, 0.15)',
+              border: '1px solid rgba(59, 130, 246, 0.4)',
+              borderRadius: '14px',
+              color: '#60a5fa',
+              fontSize: '11px',
+              cursor: 'pointer'
+            }}
+          >
+            {chip}
+          </button>
         ))}
       </div>
 
