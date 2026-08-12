@@ -18,6 +18,10 @@ function App() {
   const [showCoverKit, setShowCoverKit] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
 
+  const handleDragStart = (e, item) => {
+    e.dataTransfer.setData('text/plain', JSON.stringify(item));
+  };
+
   return (
     <div className="app-container">
       {showBible && <BibleModal onClose={() => setShowBible(false)} />}
@@ -61,7 +65,7 @@ function App() {
           <div className="panel-header">Asset Library</div>
           <div className="panel-content">
             <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Page Templates</h3>
-            <ul style={{ listStyle: 'none', fontSize: '14px', marginBottom: '16px' }}>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '14px', marginBottom: '16px' }}>
               {[
                 { id: 't1', name: '3-Panel Vertical', type: 'template', layout: '3-vertical' },
                 { id: 't2', name: '4-Panel Grid', type: 'template', layout: '4-grid' },
@@ -80,71 +84,7 @@ function App() {
               ))}
             </ul>
 
-            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Shot Sizes</h3>
-            <ul style={{ listStyle: 'none', fontSize: '14px', marginBottom: '16px' }}>
-              {Taxonomy.ShotSizes.slice(0, 5).map(shot => (
-                <li 
-                  key={shot.id} 
-                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(255,255,255,0.05)', marginBottom: '4px', borderRadius: '4px' }}
-                  draggable="true"
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'panel', title: shot.name }));
-                  }}
-                >
-                  <strong>{shot.id}</strong> - {shot.name}
-                </li>
-              ))}
-            </ul>
-
-            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Balloons & Lettering</h3>
-            <ul style={{ listStyle: 'none', fontSize: '14px', marginBottom: '16px' }}>
-              {Taxonomy.Balloons.slice(0, 4).map(balloon => (
-                <li 
-                  key={balloon} 
-                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(255,255,255,0.05)', marginBottom: '4px', borderRadius: '4px' }}
-                  draggable="true"
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'balloon', text: `${balloon} Text` }));
-                  }}
-                >
-                  {balloon} Balloon
-                </li>
-              ))}
-            </ul>
-
-            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>SFX & Impact</h3>
-            <ul style={{ listStyle: 'none', fontSize: '14px', marginBottom: '16px' }}>
-              {["BOOM", "WHAM", "CRASH", "SWISH"].map(sfx => (
-                <li 
-                  key={sfx} 
-                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontStyle: 'italic', fontWeight: 'bold', marginBottom: '4px', borderRadius: '4px' }}
-                  draggable="true"
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'sfx', text: sfx }));
-                  }}
-                >
-                  {sfx}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </aside>
-
-        {/* Central Canvas */}
-        <section className="canvas-area">
-          <ComicCanvas />
-        </section>
-
-      <main className="main-content">
-        {/* Left Sidebar (Asset Library) */}
-        <aside className="left-sidebar">
-          <div style={{ padding: '16px', borderBottom: '1px solid var(--border)' }}>
-            <h3 style={{ margin: 0, fontSize: '14px' }}>Asset Library</h3>
-            <input type="text" placeholder="Search taxonomies..." style={{ width: '100%', padding: '6px', marginTop: '8px', background: 'var(--bg)', border: '1px solid var(--border)', color: 'white', borderRadius: '4px' }} />
-          </div>
-          
-          <div style={{ padding: '16px', flex: 1, overflowY: 'auto' }}>
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>Panels (Drag)</h4>
+            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Panels (Drag)</h3>
             <div 
               draggable="true" 
               onDragStart={(e) => handleDragStart(e, { type: 'panel', title: 'Standard Panel' })}
@@ -160,16 +100,16 @@ function App() {
               [+] Cinematic Wide
             </div>
 
-            <h4 style={{ margin: '0 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>Balloons (Drag)</h4>
+            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Balloons & Speech</h3>
             <div 
               draggable="true" 
               onDragStart={(e) => handleDragStart(e, { type: 'balloon', text: 'Hello!' })}
-              style={{ padding: '8px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid var(--primary)', marginBottom: '8px', borderRadius: '16px', cursor: 'grab', fontSize: '12px', textAlign: 'center' }}
+              style={{ padding: '8px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid var(--primary)', marginBottom: '16px', borderRadius: '16px', cursor: 'grab', fontSize: '12px', textAlign: 'center' }}
             >
               Speech Bubble
             </div>
 
-            <h4 style={{ margin: '16px 0 8px 0', fontSize: '12px', color: 'var(--text-secondary)' }}>SFX (Drag)</h4>
+            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>SFX & Impact</h3>
             <div 
               draggable="true" 
               onDragStart={(e) => handleDragStart(e, { type: 'sfx', text: 'BOOM!', color: '#ef4444' })}
@@ -180,8 +120,10 @@ function App() {
           </div>
         </aside>
 
-        {/* Universal Canvas Area */}
-        <ComicCanvas />
+        {/* Central Canvas Area */}
+        <section className="canvas-area">
+          <ComicCanvas />
+        </section>
       </main>
 
       {/* Pages & Workspace Tray (Section 49) */}
