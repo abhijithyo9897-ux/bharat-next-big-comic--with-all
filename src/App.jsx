@@ -84,39 +84,53 @@ function App() {
               ))}
             </ul>
 
-            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Panels (Drag)</h3>
-            <div 
-              draggable="true" 
-              onDragStart={(e) => handleDragStart(e, { type: 'panel', title: 'Standard Panel' })}
-              style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', marginBottom: '8px', borderRadius: '4px', cursor: 'grab', fontSize: '12px' }}
-            >
-              [+] Standard Panel
-            </div>
-            <div 
-              draggable="true" 
-              onDragStart={(e) => handleDragStart(e, { type: 'panel', title: 'Cinematic Wide' })}
-              style={{ padding: '8px', background: 'rgba(255,255,255,0.05)', marginBottom: '16px', borderRadius: '4px', cursor: 'grab', fontSize: '12px' }}
-            >
-              [+] Cinematic Wide
-            </div>
+            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Shot Sizes (Taxonomy)</h3>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '14px', marginBottom: '16px' }}>
+              {Taxonomy.ShotSizes.slice(0, 5).map(shot => (
+                <li 
+                  key={shot.id} 
+                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(255,255,255,0.05)', marginBottom: '4px', borderRadius: '4px' }}
+                  draggable="true"
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'panel', title: shot.name, shotSize: shot.id }));
+                  }}
+                >
+                  <strong>{shot.id}</strong> - {shot.name}
+                </li>
+              ))}
+            </ul>
 
-            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Balloons & Speech</h3>
-            <div 
-              draggable="true" 
-              onDragStart={(e) => handleDragStart(e, { type: 'balloon', text: 'Hello!' })}
-              style={{ padding: '8px', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid var(--primary)', marginBottom: '16px', borderRadius: '16px', cursor: 'grab', fontSize: '12px', textAlign: 'center' }}
-            >
-              Speech Bubble
-            </div>
+            <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>Balloons & Lettering</h3>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '14px', marginBottom: '16px' }}>
+              {Taxonomy.Balloons.slice(0, 4).map(balloon => (
+                <li 
+                  key={balloon} 
+                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa', marginBottom: '4px', borderRadius: '4px' }}
+                  draggable="true"
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'balloon', text: `${balloon} Text` }));
+                  }}
+                >
+                  {balloon} Balloon
+                </li>
+              ))}
+            </ul>
 
             <h3 style={{ marginBottom: '8px', fontSize: '14px', color: 'var(--text-secondary)' }}>SFX & Impact</h3>
-            <div 
-              draggable="true" 
-              onDragStart={(e) => handleDragStart(e, { type: 'sfx', text: 'BOOM!', color: '#ef4444' })}
-              style={{ padding: '8px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid #ef4444', marginBottom: '8px', borderRadius: '4px', cursor: 'grab', fontSize: '14px', textAlign: 'center', fontWeight: 'bold', color: '#ef4444', fontStyle: 'italic' }}
-            >
-              BOOM!
-            </div>
+            <ul style={{ listStyle: 'none', padding: 0, fontSize: '14px', marginBottom: '16px' }}>
+              {["BOOM", "WHAM", "CRASH", "SWISH"].map(sfx => (
+                <li 
+                  key={sfx} 
+                  style={{ padding: '8px', borderBottom: '1px solid var(--border)', cursor: 'grab', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', fontStyle: 'italic', fontWeight: 'bold', marginBottom: '4px', borderRadius: '4px' }}
+                  draggable="true"
+                  onDragStart={(e) => {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({ type: 'sfx', text: sfx }));
+                  }}
+                >
+                  {sfx}
+                </li>
+              ))}
+            </ul>
           </div>
         </aside>
 
